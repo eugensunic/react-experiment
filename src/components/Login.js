@@ -1,7 +1,14 @@
 import React, { Component } from "react";
 import { mockLoginRequest } from "../helpers";
-import { useHistory, withRouter } from "react-router-dom";
+import { withRouter } from "react-router-dom";
+import { connect } from "react-redux";
 // import loginService from "../services/login.service";
+
+const mapDispatchToProps = dispatch => ({
+  loginSuccess: () => {
+    dispatch({ type: "success", payload: true });
+  }
+});
 
 class Login extends Component {
   constructor(props) {
@@ -71,9 +78,9 @@ class Login extends Component {
                     submitRequest: false
                   },
                   () => {
-                    console.log(useHistory);
                     localStorage.setItem("user", "bam");
                     this.props.history.push("/settings");
+                    this.props.loginSuccess();
                   }
                 )
               : this.setState({
@@ -87,7 +94,6 @@ class Login extends Component {
   }
 
   render() {
-    console.log("how many times");
     return (
       <div className="row">
         <div className="card card-signin my-5 center">
@@ -157,4 +163,7 @@ class Login extends Component {
   }
 }
 
-export default withRouter(Login);
+export default connect(
+  null,
+  mapDispatchToProps
+)(withRouter(Login));
