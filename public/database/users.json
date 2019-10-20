@@ -1,0 +1,36 @@
+{
+  "users": [
+    {
+      "id": "3832sjkwiasj",
+      "password": "abcd1244",
+      "jobTitleName": "Developer",
+      "firstName": "Romin",
+      "lastName": "Irani",
+      "username": "romin.irani@gmail.com"
+    },
+    {
+      "id": "983745n3uhj",
+      "password": "12345",
+      "jobTitleName": "Accountant",
+      "firstName": "Eugene",
+      "lastName": "Sunic",
+      "username": "eugen.sunic@gmail.com"
+    },
+    {
+      "id": "3832s34565464sj",
+      "password": "12344321",
+      "jobTitleName": "Manager",
+      "firstName": "Robin",
+      "lastName": "Manix",
+      "username": "robin.manix@gmail.com"
+    },
+    {
+      "id": "3832s345654643453j",
+      "password": "armstrong",
+      "jobTitleName": "Admin Sales",
+      "firstName": "Jhon",
+      "lastName": "Doe",
+      "username": "jhon.doe@gmail.com"
+    }
+  ]
+}
