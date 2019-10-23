@@ -1,33 +1,52 @@
-import React from "react";
+import React, { Component } from "react";
 import { Router, Route, Switch } from "react-router-dom";
 import { history } from "./helpers";
-import { PrivateRoute } from "./components/PrivateRoute";
-import Login from "./components/Login";
-import Settings from "./components/Settings";
-import About from "./components/About";
-import NoMatch from "./components/NoMatch";
-import Navbar from "./components/Navbar";
-import EventProjects from "./components/EventProjects";
-import UserProfile from "./components/UserProfile";
-import Footer from "./components/Footer";
+import { connect } from "react-redux";
+// main
+import Login from "./components/main/Login";
+import Settings from "./components/main/Settings";
+import About from "./components/main/About";
+import EventProjects from "./components/main/EventProjects";
+import UserProfile from "./components/main/UserProfile";
+// utils
+import NoMatch from "./components/utils/NoMatch";
+import PrivateRoute from "./components/utils/PrivateRoute";
+import Navbar from "./components/utils/Navbar";
+import Footer from "./components/utils/Footer";
+import ErrorContainer from "./components/utils/ErrorContainer";
 
-function App() {
-  return (
-    <div className="App">
-      <Router history={history}>
-        <Navbar />
-        <Switch>
-          <Route exact path="/" component={Login} />
-          <PrivateRoute path="/settings" component={Settings} />
-          <PrivateRoute path="/profile" component={UserProfile} />
-          <PrivateRoute path="/projects" component={EventProjects} />
-          <Route path="/about" component={About} />
-          <Route component={NoMatch} />
-        </Switch>
-      </Router>
-      <Footer />
-    </div>
-  );
+const mapStateToProps = state => {
+  return {
+    errorMessage: state.globalError.message
+  };
+};
+
+class App extends Component {
+  constructor(props) {
+    super(props);
+  }
+  render() {
+    return (
+      <div className="App">
+        <Router history={history}>
+          <Navbar />
+          <ErrorContainer message={this.props.errorMessage} />
+          <Switch>
+            <Route exact path="/" component={Login} />
+            <PrivateRoute path="/settings" component={Settings} />
+            <PrivateRoute path="/profile" component={UserProfile} />
+            <PrivateRoute path="/projects" component={EventProjects} />
+            <Route path="/about" component={About} />
+            <Route component={NoMatch} />
+          </Switch>
+        </Router>
+        <Footer />
+      </div>
+    );
+  }
 }
 
-export default App;
+export default connect(
+  mapStateToProps,
+  null
+)(App);

@@ -1,10 +1,7 @@
 import React from "react";
 import { Route, Redirect } from "react-router-dom";
 
-export const PrivateRoute = ({ component: Component, ...rest }) => (
-    // component did mount here and then check if user token exists,
-    // if not then dispatch, never call a function inside the render()
-    // since render updates multiple times
+const PrivateRoute = ({ component: Component, ...rest }) => (
   <Route
     {...rest}
     render={props =>
@@ -16,3 +13,5 @@ export const PrivateRoute = ({ component: Component, ...rest }) => (
     }
   />
 );
+
+export default PrivateRoute;

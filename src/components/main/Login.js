@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { mockLoginRequest } from "../helpers";
+import { mockLoginRequest } from "../../helpers";
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 // import loginService from "../services/login.service";
@@ -79,7 +79,7 @@ class Login extends Component {
                   },
                   () => {
                     localStorage.setItem("user", "bam");
-                    this.props.history.push("/settings");
+                    this.props.history.push("/profile");
                     this.props.loginSuccess();
                   }
                 )
@@ -88,7 +88,7 @@ class Login extends Component {
                   submitRequest: false
                 })
           )
-          .catch(x => console.log("error occured", x)),
+          .catch(x => console.log("error occurred", x)),
       1000
     );
   }
@@ -96,7 +96,10 @@ class Login extends Component {
   render() {
     return (
       <div className="row">
-        <div className="card card-signin my-5 center">
+        <div
+          className="card card-signin my-5 center"
+          style={{ opacity: localStorage.getItem("user") ? 0.4 : 1 }}
+        >
           <div className="card-body">
             <h5 className="card-title text-center">Admin area</h5>
             <div className="form-signin">
@@ -147,6 +150,7 @@ class Login extends Component {
               {this.state.submitRequest && <div className="loader"></div>}
               <button
                 className="btn btn-lg btn-primary btn-block text-uppercase"
+                disabled={!!localStorage.getItem("user")}
                 type="submit"
                 onClick={() =>
                   this.validateUser(this.state.username, this.state.password)

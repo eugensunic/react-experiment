@@ -1,29 +1,12 @@
 import React, { Component } from "react";
 import { withRouter } from "react-router-dom";
-import { connect } from "react-redux";
 import { Link } from "react-router-dom";
+import Logout from "./Logout";
 
-const mapStateToProps = state => ({
-  isLoggedIn: state.login.message
-});
-
-const mapDispatchToProps = dispatch => ({
-  logout: () => {
-    dispatch({ type: "success", payload: false });
-  }
-});
 class Navbar extends Component {
   constructor(props) {
     super(props);
   }
-
-  handleOnLogoutClick() {
-    localStorage.clear();
-    this.props.logout();
-    this.props.history.push("/");
-  }
-
-  componentDidUpdate() {}
 
   render() {
     return (
@@ -67,17 +50,10 @@ class Navbar extends Component {
             </li>
           </ul>
         </div>
-        {this.props.isLoggedIn && (
-          <div id="logout" onClick={() => this.handleOnLogoutClick()}>
-            Logout
-          </div>
-        )}
+        <Logout />
       </nav>
     );
   }
 }
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(withRouter(Navbar));
+export default withRouter(Navbar);
