@@ -1,22 +1,12 @@
-// export default loginService = {
-//   isFrontendValid,
-//   isEmpty,
-//   isUsernameValid,
-//   isPasswordLessThan5
-// };
+export function isUsernameValid(username) {
+  console.log("bam", username);
+  return username.indexOf("@") > -1;
+}
 
-// function isUsernameValid(username) {
-//   username.indexOf("@") > -1;
-// }
+export function isEmpty(param) {
+  return !param;
+}
 
-// function isEmpty(param) {
-//   return !param;
-// }
-
-// function isPasswordLessThan5(password) {
-//   return password.length < 5;
-// }
-
-// function isFrontendValid(username, password) {
-//   return isUsernameValid(username) && !isPasswordLessThan5(password);
-// }
+export function isPasswordLessThan5(password) {
+  return password.length < 5;
+}
