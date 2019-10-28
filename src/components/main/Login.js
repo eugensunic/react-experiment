@@ -18,6 +18,7 @@ function Login(props) {
     loginSuccess: false
   });
 
+  // successful login hook
   useEffect(() => {
     if (!obj.loginSuccess) return;
     console.log("success");
@@ -25,8 +26,10 @@ function Login(props) {
     props.history.push("/profile");
   }, [obj.loginSuccess]);
 
+  // BE validation hook
   useEffect(() => {
     if (!obj.submitRequest) return;
+    // setting timeout for loading spinner
     setTimeout(
       _ =>
         mockLoginRequest("/database/users.json")
@@ -48,6 +51,8 @@ function Login(props) {
       1000
     );
   }, [obj.submitRequest]);
+
+  const isLoggedIn = () => !!localStorage.getItem("user");
 
   const isFrontendValid = (username, password) => {
     return isUsernameValid(username) && !isPasswordLessThan5(password);
@@ -71,7 +76,6 @@ function Login(props) {
         usernameErr = "Please provide valid username/mail";
       }
       if (isEmpty(password)) {
-        console.log("entered empty password");
         passwordErr = "Please provide password";
       } else if (isPasswordLessThan5(password)) {
         passwordErr = "Password too short";
@@ -83,7 +87,7 @@ function Login(props) {
       });
       return;
     }
-    // one time update
+    // triggers BE validation hook
     setCredential({
       ...obj,
       submitRequest: true
@@ -93,7 +97,7 @@ function Login(props) {
     <div className="row">
       <div
         className="card card-signin my-5 center"
-        style={{ opacity: localStorage.getItem("user") ? 0.4 : 1 }}
+        style={{ opacity: isLoggedIn() ? 0.4 : 1 }}
       >
         <div className="card-body">
           <h5 className="card-title text-center">Admin area</h5>
@@ -143,7 +147,7 @@ function Login(props) {
             {obj.submitRequest && <div className="loader"></div>}
             <button
               className="btn btn-lg btn-primary btn-block text-uppercase"
-              disabled={!!localStorage.getItem("user")}
+              disabled={isLoggedIn()}
               type="submit"
               onClick={() => validateUser(obj.username, obj.password)}
             >
