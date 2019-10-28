@@ -1,7 +1,6 @@
-import React, { Component } from "react";
+import React, { useReducer } from "react";
 import { Router, Route, Switch } from "react-router-dom";
 import { history } from "./helpers";
-import { connect } from "react-redux";
 // main
 import Login from "./components/main/Login";
 import Settings from "./components/main/Settings";
@@ -15,38 +14,39 @@ import Navbar from "./components/utils/Navbar";
 import Footer from "./components/utils/Footer";
 import ErrorContainer from "./components/utils/ErrorContainer";
 
-const mapStateToProps = state => {
-  return {
-    errorMessage: state.globalError.message
-  };
+const reducer = (state = { message: null }, action) => {
+  switch (action.type) {
+    case "global":
+      return {
+        ...state,
+        message: action.payload
+      };
+    default:
+      return state;
+  }
 };
 
-class App extends Component {
-  constructor(props) {
-    super(props);
-  }
-  render() {
-    return (
-      <div className="App">
-        <Router history={history}>
-          <Navbar />
-          <ErrorContainer message={this.props.errorMessage} />
-          <Switch>
-            <Route exact path="/" component={Login} />
-            <PrivateRoute path="/settings" component={Settings} />
-            <PrivateRoute path="/profile" component={UserProfile} />
-            <PrivateRoute path="/projects" component={EventProjects} />
-            <Route path="/about" component={About} />
-            <Route component={NoMatch} />
-          </Switch>
-        </Router>
-        <Footer />
-      </div>
-    );
-  }
+export const GlobalErrorContext = React.createContext();
+
+function App() {
+  const [error, dispatch] = useReducer(reducer, "");
+  return (
+    <GlobalErrorContext.Provider value={{ dispatchError: dispatch }}>
+      <Router history={history}>
+        <Navbar />
+        <ErrorContainer message={error.message} />
+        <Switch>
+          <Route exact path="/" component={Login} />
+          <PrivateRoute path="/settings" component={Settings} />
+          <PrivateRoute path="/profile" component={UserProfile} />
+          <PrivateRoute path="/projects" component={EventProjects} />
+          <Route path="/about" component={About} />
+          <Route component={NoMatch} />
+        </Switch>
+      </Router>
+      <Footer />
+    </GlobalErrorContext.Provider>
+  );
 }
 
-export default connect(
-  mapStateToProps,
-  null
-)(App);
+export default App;

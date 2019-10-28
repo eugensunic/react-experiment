@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { withRouter } from "react-router-dom";
 import { mockLoginRequest } from "../../helpers/mock-call";
+import { GlobalErrorContext } from "../../App";
 
 import {
   isUsernameValid,
@@ -9,6 +10,7 @@ import {
 } from "../../services/login.service.js";
 
 function Login(props) {
+  const errorContext = useContext(GlobalErrorContext);
   const [obj, setCredential] = useState({
     username: "",
     password: "",
@@ -22,7 +24,7 @@ function Login(props) {
   useEffect(() => {
     if (!obj.loginSuccess) return;
     console.log("success");
-    localStorage.setItem("user", "bam");
+    localStorage.setItem("user", "exists");
     props.history.push("/profile");
   }, [obj.loginSuccess]);
 
@@ -47,7 +49,12 @@ function Login(props) {
                   submitRequest: false
                 })
           )
-          .catch(x => console.log("error occurred", x)),
+          .catch(_ =>
+            errorContext.dispatchError({
+              type: "global",
+              payload: "Error ocurred, Could not fetch user"
+            })
+          ),
       1000
     );
   }, [obj.submitRequest]);

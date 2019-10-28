@@ -5,6 +5,7 @@ class ErrorContainer extends Component {
     super(props);
   }
   render() {
+    if (!this.props.message) return <div></div>;
     return (
       <div
         className="error-container"

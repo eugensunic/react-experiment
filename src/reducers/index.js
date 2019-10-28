@@ -1,7 +1,5 @@
-import { combineReducers } from "redux";
-import { login } from "./login.reducer";
-import { globalError } from "./error.reducer";
+// import { combineReducers } from "redux";
 
-const rootReducer = combineReducers({ login, globalError });
-
+// const rootReducer = combineReducers({ login, globalError });
+const rootReducer = () => {};
 export default rootReducer;
