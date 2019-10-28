@@ -8,6 +8,11 @@ class Navbar extends Component {
     super(props);
   }
 
+  handleOnLogoutClick = () => {
+    localStorage.clear();
+    this.props.history.push("/");
+  };
+
   render() {
     return (
       <nav className="navbar navbar-expand-lg navbar-light bg-light">
@@ -50,7 +55,7 @@ class Navbar extends Component {
             </li>
           </ul>
         </div>
-        <Logout />
+        <Logout logout={this.handleOnLogoutClick} />
       </nav>
     );
   }

@@ -14,7 +14,8 @@ import Navbar from "./components/utils/Navbar";
 import Footer from "./components/utils/Footer";
 import ErrorContainer from "./components/utils/ErrorContainer";
 
-const reducer = (state = { message: null }, action) => {
+// global error reducer
+const reducer = (state = { message: "" }, action) => {
   switch (action.type) {
     case "global":
       return {
