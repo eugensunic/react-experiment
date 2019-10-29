@@ -6,7 +6,7 @@
       "jobTitleName": "Developer",
       "firstName": "Romin",
       "lastName": "Irani",
-      "username": "romin.irani@gmail.com"
+      "userName": "romin.irani@gmail.com"
     },
     {
       "id": "983745n3uhj",
@@ -14,7 +14,7 @@
       "jobTitleName": "Accountant",
       "firstName": "Eugene",
       "lastName": "Sunic",
-      "username": "eugen.sunic@gmail.com"
+      "userName": "eugen.sunic@gmail.com"
     },
     {
       "id": "3832s34565464sj",
@@ -22,7 +22,7 @@
       "jobTitleName": "Manager",
       "firstName": "Robin",
       "lastName": "Manix",
-      "username": "robin.manix@gmail.com"
+      "userName": "robin.manix@gmail.com"
     },
     {
       "id": "3832s345654643453j",
@@ -30,7 +30,7 @@
       "jobTitleName": "Admin Sales",
       "firstName": "Jhon",
       "lastName": "Doe",
-      "username": "jhon.doe@gmail.com"
+      "userName": "jhon.doe@gmail.com"
     }
   ]
 }

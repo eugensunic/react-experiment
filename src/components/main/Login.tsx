@@ -2,16 +2,38 @@ import React, { useState, useEffect, useContext } from "react";
 import { withRouter } from "react-router-dom";
 import { mockLoginRequest } from "../../helpers/mock-call";
 import { GlobalErrorContext } from "../../App";
- 
+
 import {
   isUsernameValid,
   isEmpty,
   isPasswordLessThan5
 } from "../../services/login.service.js";
 
-function Login(props) {
+interface Credentials {
+  username: string;
+  password: string;
+  passwordError: string | null;
+  usernameError: string | null;
+  submitRequest: boolean;
+  loginSuccess: boolean;
+}
+
+interface UsersResponse {
+  users: User[];
+}
+
+interface User {
+  id: string;
+  password: string;
+  jobTitleName: string;
+  firstName: string;
+  lastName: string;
+  userName: string;
+}
+
+function Login(props: any) {
   const errorContext = useContext(GlobalErrorContext);
-  const [obj, setCredential] = useState({
+  const [obj, setCredential] = useState<Credentials>({
     username: "",
     password: "",
     passwordError: null,
@@ -59,19 +81,19 @@ function Login(props) {
     );
   }, [obj.submitRequest]);
 
-  const isLoggedIn = () => !!localStorage.getItem("user");
+  const isLoggedIn = (): boolean => !!localStorage.getItem("user");
 
-  const isFrontendValid = (username, password) => {
+  const isFrontendValid = (username: string, password: string): boolean => {
     return isUsernameValid(username) && !isPasswordLessThan5(password);
   };
 
-  const validCredentials = res => {
+  const validCredentials = (res: UsersResponse): boolean => {
     return res.users.some(
-      x => obj.username === x.username && obj.password === x.password
+      x => obj.username === x.userName && obj.password === x.password
     );
   };
 
-  const validateUser = (username, password) => {
+  const validateUser = (username: string, password: string): void => {
     // FE validation
     let usernameErr = "";
     let passwordErr = "";

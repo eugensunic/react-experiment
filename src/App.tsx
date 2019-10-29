@@ -15,7 +15,7 @@ import Footer from "./components/utils/Footer";
 import ErrorContainer from "./components/utils/ErrorContainer";
 
 // global error reducer
-const reducer = (state = { message: "" }, action) => {
+const reducer = (state = { message: "" }, action: DispatchProp) => {
   switch (action.type) {
     case "global":
       return {
@@ -27,10 +27,19 @@ const reducer = (state = { message: "" }, action) => {
   }
 };
 
-export const GlobalErrorContext = React.createContext();
+interface DispatchProp {
+  type: string;
+  payload: any;
+}
+
+interface IContextProps {
+  dispatchError: (obj: DispatchProp) => void;
+}
+
+export const GlobalErrorContext = React.createContext({} as IContextProps);
 
 function App() {
-  const [error, dispatch] = useReducer(reducer, "");
+  const [error, dispatch] = useReducer(reducer, { message: "" });
   return (
     <GlobalErrorContext.Provider value={{ dispatchError: dispatch }}>
       <Router history={history}>
