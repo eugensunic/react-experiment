@@ -2,7 +2,7 @@ import React, { useState, useEffect, useContext } from "react";
 import { withRouter } from "react-router-dom";
 import { mockLoginRequest } from "../../helpers/mock-call";
 import { GlobalErrorContext } from "../../App";
-
+ 
 import {
   isUsernameValid,
   isEmpty,
