@@ -1,13 +1,13 @@
 import React, { useState, useEffect, useContext } from "react";
-import { withRouter } from "react-router-dom";
-import { mockLoginRequest } from "../../helpers/mock-call";
+import { withRouter, RouteComponentProps } from "react-router-dom";
+import { mockLoginRequest, isLoggedIn } from "../../helpers";
 import { GlobalErrorContext } from "../../App";
 
 import {
   isUsernameValid,
   isEmpty,
   isPasswordLessThan5
-} from "../../services/login.service.js";
+} from "../../services/login.service";
 
 interface Credentials {
   username: string;
@@ -31,7 +31,7 @@ interface User {
   userName: string;
 }
 
-function Login(props: any) {
+function Login({ history }: RouteComponentProps) {
   const errorContext = useContext(GlobalErrorContext);
   const [obj, setCredential] = useState<Credentials>({
     username: "",
@@ -46,8 +46,8 @@ function Login(props: any) {
   useEffect(() => {
     if (!obj.loginSuccess) return;
     localStorage.setItem("user", "exists");
-    props.history.push("/profile");
-  }, [obj.loginSuccess]);
+    history.push("/profile");
+  }, [obj.loginSuccess, history]);
 
   // BE validation hook
   useEffect(() => {
@@ -79,8 +79,6 @@ function Login(props: any) {
       1000
     );
   }, [obj.submitRequest]);
-
-  const isLoggedIn = (): boolean => !!localStorage.getItem("user");
 
   const isFrontendValid = (username: string, password: string): boolean => {
     return isUsernameValid(username) && !isPasswordLessThan5(password);

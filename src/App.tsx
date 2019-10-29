@@ -14,6 +14,10 @@ import Navbar from "./components/utils/Navbar";
 import Footer from "./components/utils/Footer";
 import ErrorContainer from "./components/utils/ErrorContainer";
 
+interface DispatchProp {
+  type: string;
+  payload: string;
+}
 // global error reducer
 const reducer = (state = { message: "" }, action: DispatchProp) => {
   switch (action.type) {
@@ -26,11 +30,6 @@ const reducer = (state = { message: "" }, action: DispatchProp) => {
       return state;
   }
 };
-
-interface DispatchProp {
-  type: string;
-  payload: any;
-}
 
 interface IContextProps {
   dispatchError: (obj: DispatchProp) => void;
