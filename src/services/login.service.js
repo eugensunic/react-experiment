@@ -1,5 +1,4 @@
 export function isUsernameValid(username) {
-  console.log("bam", username);
   return username.indexOf("@") > -1;
 }
 

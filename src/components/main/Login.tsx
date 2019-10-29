@@ -45,7 +45,6 @@ function Login(props: any) {
   // successful login hook
   useEffect(() => {
     if (!obj.loginSuccess) return;
-    console.log("success");
     localStorage.setItem("user", "exists");
     props.history.push("/profile");
   }, [obj.loginSuccess]);
